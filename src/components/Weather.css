@@ -1,0 +1,43 @@
+.condition-summary {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.location-info {
+    text-align: center;
+}
+
+.location-name {
+    font-size: 2rem;
+}
+
+.location-sub {
+    font-size: .8rem;
+    font-weight: 100;
+}
+
+.condition-icon-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.condition-icon img {
+    width: 64px;
+    margin: auto;
+    text-align: center;
+}
+
+.condition-temp {
+    font-size: 3.5rem;
+    font-weight: 600;
+}
+
+.condition-text {
+    font-size: 0.8rem;
+    margin: -10px;
+}
