@@ -41,3 +41,29 @@
     font-size: 0.8rem;
     margin: -10px;
 }
+
+.speech-bubble {
+	position: relative;
+	background: #f0f0f0;
+	border-radius: .4em;
+    padding: 1.5rem;
+    top: 25px;
+    box-shadow: 0px 0px 5px #afafaf;
+    max-width: 300px;
+    color: #5d5d5d;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-bottom-color: #f0f0f0;
+	border-top: 0;
+	border-left: 0;
+	margin-left: -10px;
+	margin-top: -20px;
+}

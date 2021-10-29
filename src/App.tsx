@@ -1,13 +1,11 @@
-import Weather from './components/Weather';
+import MoodyWeather from './components/MoodyWeather';
 import './App.css';
-import MoodDialogue from './components/MoodDialogue';
 
 function App() {
 
   return (
     <div className="container">
-      <Weather tempUnit="f"/>
-      <MoodDialogue/>
+      <MoodyWeather tempUnit="f"/>
     </div>
   );
 }
