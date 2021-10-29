@@ -6,8 +6,8 @@ function App() {
 
   return (
     <div className="container">
-      <Weather tempUnit="f"></Weather>
-      <MoodDialogue></MoodDialogue>
+      <Weather tempUnit="f"/>
+      <MoodDialogue/>
     </div>
   );
 }

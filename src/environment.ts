@@ -1,6 +1,9 @@
+const api = process.env.REACT_APP_API;
+
 const environment = {
-    WEATHER_API_KEY: process.env.REACT_APP_WEATHER_API_KEY,
-    WEATHER_API_BASE: process.env.REACT_APP_WEATHER_API_BASE   
+    WEATHER_API: `${api}/weather`,
+    INSULT_API: `${api}/insult`,
+    COMPLIMENT_API: `${api}/compliment`
 };
 
 export default environment;

@@ -4,7 +4,7 @@ import { usePosition } from "use-position";
 import environment from "../environment";
 import './Weather.css';
 
-const { WEATHER_API_BASE, WEATHER_API_KEY } = environment;
+const { WEATHER_API } = environment;
 
 export type WeatherInfo = {
     location: {
@@ -16,11 +16,12 @@ export type WeatherInfo = {
         tempF: number,
         tempC: number,
         text: string,
-        icon: string
+        icon: string,
+        code: number
     }
 };
 
-const Weather = (props: { tempUnit: 'f' | 'c' }) => {
+export const useWeather = () => {
     const [weatherInfo, setWeatherInfo] = useState<WeatherInfo | null>(null);
     const { latitude, longitude, errorMessage } = usePosition(false);
 
@@ -31,9 +32,8 @@ const Weather = (props: { tempUnit: 'f' | 'c' }) => {
             q = `${latitude},${longitude}`;
         }
 
-        axios.get(`${WEATHER_API_BASE}/current.json`, {
+        axios.get(`${WEATHER_API}`, {
             params: {
-                key: WEATHER_API_KEY,
                 q
             }
         }).then(val => {
@@ -45,12 +45,20 @@ const Weather = (props: { tempUnit: 'f' | 'c' }) => {
                         tempF: data.current.temp_f,
                         tempC: data.current.temp_c,
                         text: data.current.condition.text,
-                        icon: data.current.condition.icon
+                        icon: data.current.condition.icon,
+                        code: data.current.condition.code
                     }
                 });
             }
         });
-    });
+    }, [errorMessage, latitude, longitude]);
+
+    return weatherInfo;
+};
+
+const Weather = (props: { tempUnit: 'f' | 'c', children?: any }) => {
+
+    const weatherInfo = useWeather();
 
     return (
         <div className="weather-card">
