@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { usePosition } from "use-position";
 import "./MoodyWeather.css";
+import Loader from "./Loader";
 
 type MoodyWeatherModel = {
     weather:  {
@@ -31,9 +32,8 @@ const MoodyWeather = ({tempUnit}: { tempUnit: 'f' | 'c' }) => {
 
     const [moodyWeather, setMoodyWeather] = useState<MoodyWeatherModel | undefined | null>();
     const { latitude, longitude, errorMessage } = usePosition(false);
-
-    useEffect(() =>  {
-
+    
+    const loadMoodyWeather = (latitude: number, longitude: number, errorMessage: string) => {
         let q: string | number = 10001;
 
         if (latitude && longitude && !errorMessage) {
@@ -41,17 +41,18 @@ const MoodyWeather = ({tempUnit}: { tempUnit: 'f' | 'c' }) => {
         }
 
         axios.get(`${process.env.REACT_APP_API}/moody-weather`, {
-            params: {
-                q
-            }
+            params: { q }
         }).then(response => {
             setMoodyWeather(response.data);
         });
+    };
 
-    }, [latitude, longitude, errorMessage]);
+    useEffect(() => loadMoodyWeather(latitude!, longitude!, errorMessage!), [latitude, longitude, errorMessage]);
 
     return (
         <div>
+            {moodyWeather ? 
+            <>
             <div className="weather-card">
                 <div className="condition-info">
                     <div className="condition-summary">
@@ -85,6 +86,7 @@ const MoodyWeather = ({tempUnit}: { tempUnit: 'f' | 'c' }) => {
             <div className="speech-bubble">
                 {moodyWeather?.dialogue}
             </div>
+            </> : <Loader></Loader>}
         </div>
     );
 
