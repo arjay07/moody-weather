@@ -5,6 +5,8 @@
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
+  position: relative;
+  margin: auto;
 }
 
 .top-right {
@@ -45,4 +47,14 @@
   color: #8f8f8f;
   font-weight: 100;
   font-size: 0.7rem;
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 45%;
+  }
+
+  .copyright, .version {
+    font-size: 1rem;
+  }
 }
