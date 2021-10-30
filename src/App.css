@@ -6,3 +6,43 @@
   min-height: 100vh;
   flex-direction: column;
 }
+
+.top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 5px;
+}
+
+.bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 5px;
+}
+
+.degrade-mode {
+  color: #fd0e0e;
+  margin-right: 5px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  transition: opacity .4s;
+}
+
+.copyright, .version {
+  color: #8f8f8f;
+  font-weight: 100;
+  font-size: 0.7rem;
+}

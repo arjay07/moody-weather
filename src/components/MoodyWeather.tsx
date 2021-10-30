@@ -28,20 +28,20 @@ type MoodyWeatherModel = {
     dialogue: string
 };
 
-const MoodyWeather = ({tempUnit}: { tempUnit: 'f' | 'c' }) => {
+const MoodyWeather = ({tempUnit, degradeMode}: { tempUnit: 'f' | 'c', degradeMode: boolean }) => {
 
     const [moodyWeather, setMoodyWeather] = useState<MoodyWeatherModel | undefined | null>();
     const { latitude, longitude, errorMessage } = usePosition(false);
     
     const loadMoodyWeather = (latitude: number, longitude: number, errorMessage: string) => {
-        let q: string | number = 10001;
+        let q: string | undefined;
 
         if (latitude && longitude && !errorMessage) {
             q = `${latitude},${longitude}`;
         }
 
         axios.get(`${process.env.REACT_APP_API}/moody-weather`, {
-            params: { q }
+            params: { q, degrading: degradeMode }
         }).then(response => {
             setMoodyWeather(response.data);
         });
