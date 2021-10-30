@@ -1,9 +1,9 @@
 import MoodyWeather from './components/MoodyWeather';
+import React, { useEffect, useState } from 'react';
+import environment from './environment';
+import Info from './components/Info';
 import './App.css';
 import './switch.css';
-import { useEffect, useState } from 'react';
-import environment from './environment';
-import infoIcon from './assets/info.svg';
 
 function App() {
 
@@ -22,14 +22,7 @@ function App() {
   return (
     <div className="container">
       <div className="top-left">
-        <img src={infoIcon} 
-             width="20" 
-             height="20"
-             style={{
-               padding: 5,
-               opacity: 0.3
-             }}
-             alt="Information"/>
+        <Info></Info>
       </div>
       <div className="top-right" style={{ padding: 5 }}>
         <span className="degrade-mode" style={{ opacity: degradeMode ? 1 : 0 }}>Degrade me</span>
