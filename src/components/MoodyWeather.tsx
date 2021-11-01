@@ -3,7 +3,8 @@ import axios from "axios";
 import Loader from "./Loader";
 import { usePosition } from "use-position";
 import "./MoodyWeather.css";
-import "animate.css";
+import SpeechBubble from "./SpeechBubble";
+import environment from "../environment";
 
 type MoodyWeatherModel = {
     weather:  {
@@ -26,10 +27,13 @@ type MoodyWeatherModel = {
            is_day: number
         }
     },
-    dialogue: string
+    dialogue: {
+        text: string,
+        isInsult: boolean
+    }
 };
 
-const MoodyWeather = ({tempUnit, degradeMode}: { tempUnit: 'f' | 'c', degradeMode: boolean }) => {
+const MoodyWeather = ({ tempUnit, degradeMode }: { tempUnit: 'f' | 'c', degradeMode: boolean }) => {
 
     const [moodyWeather, setMoodyWeather] = useState<MoodyWeatherModel | undefined | null>();
     const [loading, setLoading] = useState(false);
@@ -44,7 +48,7 @@ const MoodyWeather = ({tempUnit, degradeMode}: { tempUnit: 'f' | 'c', degradeMod
                 q = `${latitude},${longitude}`;
             }
     
-            axios.get(`${process.env.REACT_APP_API}/moody-weather`, {
+            axios.get(`${environment.WEATHER_API}`, {
                 params: { q, degrading: degradeMode }
             }).then(response => {
                 setMoodyWeather(response.data);
@@ -88,6 +92,20 @@ export const MoodyWeatherCard = ({moodyWeather, tempUnit}:
         moodyWeather: MoodyWeatherModel,
         tempUnit: 'f' | 'c'
     }) => {
+
+    const [dialogue, setDialogue] = useState(moodyWeather.dialogue);
+    const [loading, setLoading] = useState(false);
+
+    const refreshDialogue = () => {
+        const api = dialogue.isInsult ? environment.INSULT_API : environment.COMPLIMENT_API;
+        setLoading(true);
+        axios.get(api)
+            .then(response => {
+                setLoading(false);
+                setDialogue(response.data);
+            });
+    };
+
     return (<><div className="weather-card">
         <div className="condition-info">
             <div className="condition-summary">
@@ -118,9 +136,9 @@ export const MoodyWeatherCard = ({moodyWeather, tempUnit}:
             </div>
         </div>
     </div>
-    <div className="speech-bubble animate__animated animate__bounceIn aniamte__faster">
-        {moodyWeather.dialogue}
-    </div></>);
+    <SpeechBubble dialogue={dialogue.text} 
+                  isLoading={loading}
+                  onRefresh={refreshDialogue} /></>);
 };
 
 export default MoodyWeather;
