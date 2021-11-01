@@ -1,7 +1,6 @@
 import React from "react";
 import Swal from "sweetalert2";
 import infoIcon from '../assets/info.svg';
-import '@sweetalert2/theme-borderless';
 import './Info.css';
 
 const Info = () => {
